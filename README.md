@@ -1,40 +1,68 @@
 # Documentation
 
-## Phase 1: Pre-Installation Setup
-- Enable Virtualization: Ensure Virtualization is enabled in your BIOS (look for Intel VT-x or AMD-V). You can verify this in the Windows Task Manager under the Performance tab.
-- Disable Hyper-V: Windows Hyper-V can interfere with VirtualBox. Run the specific disable command in Command Prompt as an administrator and restart your PC.
+To install Kali Linux as your primary operating system (Bare Metal) rather than in a virtual machine, follow this official documentation guide. This process will replace your current OS or can be used for dual-booting.
 
-### Download Software:
+### **1. Prerequisites**
 
-- Download and install VirtualBox from the official website.
-- Download the VirtualBox Extension Pack for features like USB 3.0 and clipboard sharing.
-- Download the Kali Linux Installer Image (64-bit ISO) from the official Kali website.
+* **A USB Drive:** At least 8GB capacity.
+* **Kali Linux ISO:** Download the **"Installer Image"** from the [official Kali download page](https://www.google.com/search?q=https://www.kali.org/get-kali/%23kali-platforms).
+* **Flashing Tool:** Download [BalenaEtcher](https://www.balena.io/etcher/) or [Rufus](https://rufus.ie/) to create the bootable drive.
 
-## Phase 2: Creating the Virtual Machine
-- VM Configuration: In VirtualBox, create a new machine named "Kali Linux" with the type set to "Linux" and version "Debian (64-bit)."
+### **2. Create Bootable Media**
 
-### Resource Allocation:
-- RAM: Allocate at least 4GB (8GB is recommended if your system allows).
-- CPU: Assign at least 2 cores for better performance.
-- Storage: Create a virtual hard disk with at least 25GB to 50GB of space.
+1. Plug in your USB drive.
+2. Open your flashing tool (e.g., Rufus).
+3. Select the **Kali Linux ISO** you downloaded.
+4. Select your **USB drive** as the target.
+5. Click **Start/Flash** and wait for the process to complete.
 
-### Advanced Settings:
+### **3. Boot from USB**
 
-- Set Shared Clipboard and Drag and Drop to "Bidirectional."
-- Increase Video Memory to 128MB.
-- In the Storage settings, select the empty optical drive and load your downloaded Kali Linux ISO.
-  
-### Phase 3: Installing Kali Linux
-- Booting: Start the VM and select Graphical Install from the boot menu.
-- Initial Setup: Follow the prompts to choose your language, location, and keyboard layout.
-- User Account: Set a hostname, create a new user account, and set a strong password.
-- Partitioning: For beginners, choose "Guided - use entire disk" as the simplest setup.
-- Software Selection: Stick with the default XFCE desktop environment, as it is lightweight and ideal for virtual machines.
-- GRUB Bootloader: When prompted, select "Yes" to install the GRUB bootloader to ensure the system boots properly.
+1. Plug the flashed USB into the computer where you want to install Kali.
+2. Restart the computer and repeatedly press the **BIOS/Boot Menu key** (usually F2, F10, F12, or DEL).
+3. Select your **USB Drive** from the boot list.
+4. When the Kali boot menu appears, select **Graphical Install**.
 
-### Phase 4: Post-Installation Optimization
-- Update System: Open the terminal and run the update and upgrade commands to ensure all tools and security patches are current.
-- Guest Additions: Install VirtualBox Guest Additions using the terminal to enable full-screen mode, better display scaling, and smooth mouse integration.
-- Shared Folders: Configure a shared folder in VirtualBox settings to easily transfer files between your host OS and the Kali Linux VM.
+### **4. System Configuration**
 
-Youtube Tutorial: https://www.youtube.com/watch?v=ZJFu0AoAY_g
+1. **Language & Region:** Select your preferred language, location, and keyboard layout (e.g., American English).
+2. **Network:** * Enter a **Hostname** (e.g., "kali").
+* Leave **Domain Name** blank unless you are on a professional network.
+
+
+3. **Users and Passwords:** * Enter your full name and a **Username**.
+* Set a strong **Password**. You will need this for `sudo` commands later.
+
+
+
+### **5. Disk Partitioning**
+
+* **Option A (Single Boot):** Select **Guided - use entire disk**. This will wipe everything on the hard drive and install Kali as the only OS.
+* **Option B (Dual Boot):** Select **Guided - use largest continuous free space** (Note: You must have shrunk your Windows partition beforehand to create this space).
+* Confirm the changes by selecting **Finish partitioning and write changes to disk**, then select **Yes**.
+
+### **6. Software Selection**
+
+A window will appear asking which desktop environment and tools to install:
+
+* **Desktop Environment:** XFCE is the default and recommended for performance. GNOME and KDE Plasma are also available.
+* **Tools:** Keep the default "Top 10" or "Default" tools selected. You can always install more later.
+* Click **Continue** to start the installation (this may take 10–20 minutes).
+
+### **7. Finalizing**
+
+1. **GRUB Bootloader:** When asked to install the GRUB bootloader to the primary drive, select **Yes**.
+2. Select your hard drive (usually `/dev/sda` or `/dev/nvme0n1`) as the device for bootloader installation.
+3. Once the "Installation Complete" message appears, remove the USB drive and click **Continue**.
+
+### **8. Post-Installation**
+
+Once the system reboots and you log in, open the terminal and run these commands to ensure your system is up to date:
+
+```bash
+sudo apt update
+sudo apt full-upgrade -y
+
+```
+
+**Warning:** Installing Kali Linux as a primary OS on hardware requires caution, as it will erase data on the target partition. Always back up important files before proceeding.
