@@ -1,68 +1,54 @@
-# Documentation
+## Kali Linux 2025.1 Installation Documentation
 
-To install Kali Linux as your primary operating system (Bare Metal) rather than in a virtual machine, follow this official documentation guide. This process will replace your current OS or can be used for dual-booting.
+This documentation outlines the standard procedure for installing **Kali Linux 2025.1** using the graphical installer.
 
-### **1. Prerequisites**
+---
 
-* **A USB Drive:** At least 8GB capacity.
-* **Kali Linux ISO:** Download the **"Installer Image"** from the [official Kali download page](https://www.google.com/search?q=https://www.kali.org/get-kali/%23kali-platforms).
-* **Flashing Tool:** Download [BalenaEtcher](https://www.balena.io/etcher/) or [Rufus](https://rufus.ie/) to create the bootable drive.
+### **1. Initial Boot & Localization**
 
-### **2. Create Bootable Media**
+* **Boot Menu:** Select **Graphical Install** to begin the interactive setup.
+* **Language:** Select your preferred language (e.g., English).
+* **Location:** Choose your country or region to set the local time zone.
+* **Keyboard:** Select the appropriate keyboard layout (e.g., American English).
 
-1. Plug in your USB drive.
-2. Open your flashing tool (e.g., Rufus).
-3. Select the **Kali Linux ISO** you downloaded.
-4. Select your **USB drive** as the target.
-5. Click **Start/Flash** and wait for the process to complete.
+### **2. Network Configuration**
 
-### **3. Boot from USB**
+* **Hostname:** Enter a name for the system (default is `kali`).
+* **Domain Name:** Leave blank unless the system is being joined to a specific network domain.
 
-1. Plug the flashed USB into the computer where you want to install Kali.
-2. Restart the computer and repeatedly press the **BIOS/Boot Menu key** (usually F2, F10, F12, or DEL).
-3. Select your **USB Drive** from the boot list.
-4. When the Kali boot menu appears, select **Graphical Install**.
+### **3. User Account Setup**
 
-### **4. System Configuration**
+* **User Identity:** Provide the full name for the new non-root user.
+* **Username:** Define the account username used for logging in and `sudo` commands.
+* **Password:** Set a strong password. **Note:** This password is required for administrative tasks.
 
-1. **Language & Region:** Select your preferred language, location, and keyboard layout (e.g., American English).
-2. **Network:** * Enter a **Hostname** (e.g., "kali").
-* Leave **Domain Name** blank unless you are on a professional network.
+### **4. Disk Partitioning**
 
+* **Method:** For most installations, select **Guided - use entire disk**.
+* **Scheme:** Select **All files in one partition** (recommended for new users and standard environments).
+* **Commitment:** Select **Finish partitioning and write changes to disk**, then confirm by selecting **Yes**.
 
-3. **Users and Passwords:** * Enter your full name and a **Username**.
-* Set a strong **Password**. You will need this for `sudo` commands later.
+### **5. Software Selection**
 
+* **Desktop Environment:** The default is **XFCE** (recommended for performance). Alternatives include GNOME or KDE Plasma.
+* **Collection of Tools:** It is recommended to keep the default "Top 10" and "Default selection" of tools checked to ensure standard penetration testing utilities are installed.
 
+### **6. Bootloader Installation**
 
-### **5. Disk Partitioning**
+* **GRUB Installation:** When prompted to install the GRUB bootloader to the primary drive, select **Yes**.
+* **Device Selection:** Manually select the primary storage device (typically `/dev/sda`) to finalize the bootloader path.
 
-* **Option A (Single Boot):** Select **Guided - use entire disk**. This will wipe everything on the hard drive and install Kali as the only OS.
-* **Option B (Dual Boot):** Select **Guided - use largest continuous free space** (Note: You must have shrunk your Windows partition beforehand to create this space).
-* Confirm the changes by selecting **Finish partitioning and write changes to disk**, then select **Yes**.
+### **7. Post-Installation Steps**
 
-### **6. Software Selection**
-
-A window will appear asking which desktop environment and tools to install:
-
-* **Desktop Environment:** XFCE is the default and recommended for performance. GNOME and KDE Plasma are also available.
-* **Tools:** Keep the default "Top 10" or "Default" tools selected. You can always install more later.
-* Click **Continue** to start the installation (this may take 10–20 minutes).
-
-### **7. Finalizing**
-
-1. **GRUB Bootloader:** When asked to install the GRUB bootloader to the primary drive, select **Yes**.
-2. Select your hard drive (usually `/dev/sda` or `/dev/nvme0n1`) as the device for bootloader installation.
-3. Once the "Installation Complete" message appears, remove the USB drive and click **Continue**.
-
-### **8. Post-Installation**
-
-Once the system reboots and you log in, open the terminal and run these commands to ensure your system is up to date:
-
+* **Reboot:** Once the installation is complete, remove the installation media and select **Continue** to reboot.
+* **System Update:** Immediately after logging in, open a terminal and run the following command to synchronize the package index and upgrade the system:
 ```bash
-sudo apt update
-sudo apt full-upgrade -y
+sudo apt update && sudo apt upgrade -y
 
 ```
 
-**Warning:** Installing Kali Linux as a primary OS on hardware requires caution, as it will erase data on the target partition. Always back up important files before proceeding.
+
+
+---
+
+**Would you like me to generate a checklist of the essential security tools included in this version of Kali?**
